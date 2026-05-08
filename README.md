@@ -1,6 +1,10 @@
-# SISETRWEB Bot de Trading Autogestionado
+# SISETRWEB - Bot de Trading Autogestionado Inteligente
 
-Este proyecto implementa un bot de trading autogestionado para Forex, Oro e Índices, con análisis técnico en tiempo real, generación de señales, gestión de riesgo, backtesting, y un dashboard web interactivo. El sistema está diseñado para operar en un ambiente Windows y utiliza Python como lenguaje principal.
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub](https://img.shields.io/badge/GitHub-toledomendizabal%2Fsisetrweb-black)](https://github.com/toledomendizabal/sisetrweb)
+
+**SISETRWEB** es una plataforma integral de trading autogestionada que automatiza la detección, validación, monitoreo y evaluación de señales de trading con alta probabilidad estadística y control estricto de riesgo. Diseñada para Forex, Oro e Índices con análisis técnico avanzado, generación inteligente de señales, gestión de riesgo automatizada y un dashboard web interactivo en tiempo real.
 
 ## Estructura del Proyecto
 
@@ -22,30 +26,63 @@ sisetrweb_bot/
 └── README.md                  # Documentación del proyecto
 ```
 
-## Instalación (Guía Rápida)
+## 🎯 Características Principales
 
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone <URL_DEL_REPOSITORIO>
-    cd sisetrweb_bot
-    ```
-2.  **Crear y activar un entorno virtual (recomendado):**
-    ```bash
-    python -m venv venv
-    .\venv\Scripts\activate
-    ```
-3.  **Instalar dependencias:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-4.  **Configurar variables de entorno:**
-    Crear un archivo `.env` en la raíz del proyecto y añadir las variables necesarias (ej. `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `TWELVEDATA_API_KEY`, `GMAIL_CLIENT_SECRET_PATH`).
+### Análisis Técnico Avanzado
+- Indicadores multi-timeframe: EMA, RSI, MACD, Bollinger Bands, ATR, ADX, VWAP, Ichimoku
+- Confirmaciones avanzadas: Patrones de velas y divergencias de RSI
+- Análisis contextual: Filtros de sesión y correlaciones (DXY, VIX)
 
-5.  **Ejecutar el bot:**
-    ```bash
-    python src/main.py
-    ```
-    O usar el script `run_system.bat` para iniciar todos los componentes.
+### Generación de Señales Inteligente
+- Scoring automático (AAA, AA, A, Rechazada)
+- Multi-confirmación en múltiples temporalidades
+- Reglas de entrada estrictas con 12 condiciones técnicas
+
+### Gestión de Riesgo Automatizada
+- Cálculo dinámico de lotaje
+- Stop Loss inteligente basado en ATR
+- Take Profit escalonado (1:3, 1:6, 1:10)
+
+### Integraciones Clave
+- Telegram: Alertas instantáneas
+- Gmail OAuth2: Reportes diarios de backtesting
+- Excel Autogestionado: Registro y control de señales
+
+## 📊 Activos Soportados
+
+| Grupo | Instrumentos |
+| :--- | :--- |
+| **Forex Majors** | EURUSD, GBPUSD, USDJPY, USDCHF, USDCAD, AUDUSD, NZDUSD |
+| **Oro** | XAUUSD |
+| **Índices USA** | US30Cash, US100Cash, US500Cash |
+| **Índices Europa** | GE40Cash |
+
+## 🚀 Inicio Rápido
+
+### Instalación Automática (Recomendado)
+
+1. Descarga y descomprime el proyecto
+2. Haz doble clic en `run_system.bat`
+3. Completa la configuración en el archivo `.env`
+4. Accede al dashboard en `http://localhost:8000`
+
+### Instalación Manual
+
+```bash
+# Crear entorno virtual
+python -m venv venv
+
+# Activar entorno
+.\venv\Scripts\activate
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Ejecutar el bot
+python src/main.py
+```
+
+Para instrucciones detalladas, consulta [INSTALLATION.md](INSTALLATION.md).
 
 ## Requisitos del Sistema
 
@@ -53,6 +90,35 @@ sisetrweb_bot/
 -   Python: 3.9 o superior (se recomienda 3.11)
 -   MetaTrader 5 (para la conexión de datos principal)
 
-## Contacto
+## 📈 KPIs y Objetivos
 
-Para soporte o consultas, contactar a [tu_correo@ejemplo.com].
+| Métrica | Objetivo |
+| :--- | :--- |
+| **Win Rate** | > 55% |
+| **Profit Factor** | > 1.5 |
+| **Drawdown Máximo** | < 10% |
+| **Latencia de Señales** | < 2 segundos |
+| **Señales Falsas** | < 20% |
+| **Disponibilidad** | 24/7 |
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Consulta [CONTRIBUTING.md](CONTRIBUTING.md) para más detalles.
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta [LICENSE](LICENSE) para más detalles.
+
+## 📞 Contacto y Soporte
+
+- **Issues**: [GitHub Issues](https://github.com/toledomendizabal/sisetrweb/issues)
+- **Email**: support@sisetrweb.com
+- **Documentación**: [INSTALLATION.md](INSTALLATION.md)
+
+## ⚠️ Disclaimer
+
+SISETRWEB es una herramienta de análisis técnico. El trading conlleva riesgo. Utiliza bajo tu propio riesgo y responsabilidad.
+
+---
+
+**Desarrollado por:** Manus AI | **Versión:** 1.0.0 | **Última Actualización:** Mayo 2026

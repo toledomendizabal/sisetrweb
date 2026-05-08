@@ -1,19 +1,17 @@
-# SISETRWEB Bot - Dependencias FINALES (Sin compilación, compatible con Python 3.14)
-# Este archivo contiene SOLO dependencias con wheels precompilados
-# Instalar con: pip install -r requirements_final.txt --no-cache-dir
+# SISETRWEB Bot - Dependencias Optimizadas para Windows
+# Este archivo contiene versiones precompiladas que funcionan perfectamente en Windows
+# Instalar con: pip install -r requirements_windows_optimized.txt
 
 # ============================================================================
-# CORE DATA PROCESSING - Versiones estables con wheels precompilados
+# CORE DATA PROCESSING - Versiones con wheels precompilados para Windows
 # ============================================================================
 pandas>=2.1.0
-numpy>=1.26.0
+numpy>=1.24.0
 
 # ============================================================================
-# ANÁLISIS TÉCNICO - TA-Lib alternativa SIN numba (100% Python puro)
+# ANÁLISIS TÉCNICO - Alternativa a TA-Lib (100% Python, sin compilación)
 # ============================================================================
-# Nota: pandas-ta depende de numba que no es compatible con Python 3.14
-# Usamos ta-lib alternativa sin dependencias compiladas
-# Alternativa: Implementar indicadores directamente en Python
+pandas-ta>=0.3.14b0
 
 # ============================================================================
 # CONFIGURACIÓN Y VARIABLES DE ENTORNO
@@ -49,8 +47,6 @@ fastapi>=0.104.1
 uvicorn[standard]>=0.24.0
 pydantic>=2.5.0
 python-multipart>=0.0.6
-jinja2>=3.1.0
-starlette>=0.27.0
 
 # ============================================================================
 # WEBSOCKETS - Comunicación en tiempo real para el dashboard
@@ -62,11 +58,6 @@ aiofiles>=23.2.1
 # HTTP REQUESTS - Cliente HTTP para llamadas a APIs externas
 # ============================================================================
 requests>=2.31.0
-
-# ============================================================================
-# SCHEDULER - Tareas programadas (CRÍTICO para el bot)
-# ============================================================================
-APScheduler>=3.10.4
 
 # ============================================================================
 # LOGGING Y MONITOREO - Registro de eventos y debugging

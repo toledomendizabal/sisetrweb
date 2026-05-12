@@ -24,7 +24,23 @@ def get_ohlc_data(symbol, timeframe, count):
         return None
 
     utc_from = datetime.now(pytz.utc) - pd.Timedelta(minutes=timeframe_to_minutes(timeframe) * count * 2) # Obtener el doble de datos para asegurar suficientes
-    rates = mt5.copy_rates_from(symbol, getattr(mt5, f"TIMEFRAME_{timeframe}"), utc_from, count * 2)
+    # Mapeo correcto de timeframes para MetaTrader5
+    mt5_timeframe = {
+        "1M": mt5.TIMEFRAME_M1,
+        "3M": mt5.TIMEFRAME_M3,
+        "5M": mt5.TIMEFRAME_M5,
+        "15M": mt5.TIMEFRAME_M15,
+        "30M": mt5.TIMEFRAME_M30,
+        "1H": mt5.TIMEFRAME_H1,
+        "4H": mt5.TIMEFRAME_H4,
+        "1D": mt5.TIMEFRAME_D1
+    }.get(timeframe)
+
+    if mt5_timeframe is None:
+        logger.error(f"Timeframe {timeframe} no soportado por MetaTrader5.")
+        return None
+
+    rates = mt5.copy_rates_from(symbol, mt5_timeframe, utc_from, count * 2)
 
     if rates is None:
         logger.error(f"No se pudieron obtener datos OHLC para {symbol} en {timeframe}: {mt5.last_error()}")

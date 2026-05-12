@@ -63,7 +63,9 @@ def evaluate_signal(asset, df_signal, df_trend):
         sl, tp1, tp2, tp3 = calculate_tp_sl(asset, entry_price, atr, "BUY")
         
         # Calcular Lotaje
-        sl_pips = abs(entry_price - sl) * 10000 # Simplificado para Forex
+        # Ajuste de pips según el activo (Jpy tiene 2 decimales, otros 4 o 5)
+        multiplier = 100 if "JPY" in asset else 10000
+        sl_pips = abs(entry_price - sl) * multiplier
         lot_size = calculate_lot_size(CAPITAL_BASE, RIESGO_POR_OPERACION_PERCENT, sl_pips)
 
         return Signal(
@@ -75,7 +77,7 @@ def evaluate_signal(asset, df_signal, df_trend):
             tp2=tp2,
             tp3=tp3,
             sl_distance_pips=sl_pips,
-            tp_distance_pips=abs(tp1 - entry_price) * 10000,
+            tp_distance_pips=abs(tp1 - entry_price) * multiplier,
             lot_size=lot_size,
             timeframe="5M", # Ejemplo
             timestamp=datetime.now(),

@@ -22,11 +22,11 @@ ASSETS_CONFIG = {
     "USDCAD": {"enabled": True, "group": "Forex", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
     "AUDUSD": {"enabled": True, "group": "Forex", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
     "NZDUSD": {"enabled": True, "group": "Forex", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
-    "XAUUSD": {"enabled": True, "group": "Oro", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
-    "US30": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
-    "USTEC": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
-    "US500": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
-    "DE40": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
+    "GOLD": {"enabled": True, "group": "Oro", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
+    "US30Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
+    "US100Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
+    "US500Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
+    "GE40Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
 }
 
 # --- Configuración de Indicadores Técnicos ---

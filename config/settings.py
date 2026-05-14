@@ -26,7 +26,7 @@ ASSETS_CONFIG = {
     "US30Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
     "US100Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
     "US500Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
-    "GE40Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
+    "GER40Cash": {"enabled": True, "group": "Indices", "timeframe_signal": ["1M", "3M", "5M"], "timeframe_trend": ["15M", "30M", "1H"]},
 }
 
 # --- Configuración de Indicadores Técnicos ---

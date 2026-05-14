@@ -4,6 +4,7 @@ import asyncio
 import uvicorn
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .core.logger import setup_logging
+from .core.database import create_tables
 from .api.main import app as fastapi_app
 from .engines.market_watcher import start_market_watcher
 from .managers.telegram_manager import send_daily_test_message
@@ -20,6 +21,9 @@ async def start_fastapi():
 
 async def main():
     logger.info("Iniciando SISETRWEB Bot...")
+
+    # Crear tablas de base de datos
+    create_tables()
 
     # Inicializar el scheduler
     scheduler = AsyncIOScheduler()

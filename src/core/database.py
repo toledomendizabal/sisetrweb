@@ -1,5 +1,6 @@
 
 import sqlite3
+import os
 from datetime import datetime
 import json
 from config.settings import DATABASE_URL
@@ -9,7 +10,13 @@ from src.core.logger import setup_logging
 logger = setup_logging()
 
 def get_db_connection():
-    conn = sqlite3.connect(DATABASE_URL.replace("sqlite:///", ""))
+    db_path = DATABASE_URL.replace("sqlite:///", "")
+    db_dir = os.path.dirname(db_path)
+    if db_dir and not os.path.exists(db_dir):
+        os.makedirs(db_dir, exist_ok=True)
+        logger.info(f"Directorio de base de datos creado: {db_dir}")
+    
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row # Permite acceder a las columnas por nombre
     return conn
 

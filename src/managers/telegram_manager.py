@@ -8,6 +8,10 @@ logger = setup_logging()
 
 async def send_telegram_message(message):
     """Envía un mensaje a través del bot de Telegram."""
+    if not TELEGRAM_BOT_TOKEN or "TU_BOT_TOKEN" in TELEGRAM_BOT_TOKEN:
+        logger.error("Error: El token de Telegram no ha sido configurado correctamente en settings.py o .env")
+        return
+
     try:
         bot = Bot(token=TELEGRAM_BOT_TOKEN)
         await bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message, parse_mode='Markdown')

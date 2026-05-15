@@ -68,3 +68,18 @@ def timeframe_to_minutes(timeframe_str):
     if timeframe_str == "1D": return 1440
     return 1 # Default
 
+def is_position_open(symbol):
+    """Verifica si hay una posición abierta para el símbolo dado."""
+    positions = mt5.positions_get(symbol=symbol)
+    if positions is None:
+        logger.error(f"Error al obtener posiciones para {symbol}: {mt5.last_error()}")
+        return False
+    return len(positions) > 0
+
+def get_position_pnl(symbol):
+    """Obtiene el PnL actual de la posición abierta para el símbolo."""
+    positions = mt5.positions_get(symbol=symbol)
+    if positions and len(positions) > 0:
+        return positions[0].profit
+    return 0.0
+

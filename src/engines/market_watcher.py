@@ -41,7 +41,7 @@ async def start_market_watcher():
                                     logger.info(f"Resultado para {asset}: {status} | PnL: {pnl:.2f}")
                                 
                                 # Actualizar en Excel con el estado real (SL/TP) y el PnL
-                                update_signal_in_excel(asset, status, pnl)
+                                update_signal_in_excel(asset, "CLOSED", pnl, status)
                                 
                                 # También actualizar en la base de datos
                                 active_signals = get_active_signals()

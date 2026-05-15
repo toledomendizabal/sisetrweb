@@ -33,13 +33,18 @@ def save_signal_to_excel(signal_data):
     except Exception as e:
         logger.error(f"Error al guardar señal en Excel: {e}")
 
-def update_signal_in_excel(asset, status, pnl=None):
-    """Actualiza el estado de una señal en el archivo Excel."""
+def update_signal_in_excel(asset, status, pnl=None, exit_type=None):
+    """Actualiza el estado de una señal en el archivo Excel, incluyendo PnL y tipo de salida."""
     try:
         if not os.path.exists(EXCEL_SIGNALS_FILE):
             return
 
         df = pd.read_excel(EXCEL_SIGNALS_FILE)
+        
+        # Asegurar que la columna exit_type existe
+        if 'exit_type' not in df.columns:
+            df['exit_type'] = None
+
         # Buscar la última señal activa para ese activo
         mask = (df['asset'] == asset) & (df['status'] == 'ACTIVE')
         if mask.any():
@@ -47,8 +52,11 @@ def update_signal_in_excel(asset, status, pnl=None):
             df.at[idx, 'status'] = status
             if pnl is not None:
                 df.at[idx, 'pnl'] = pnl
+            if exit_type is not None:
+                df.at[idx, 'exit_type'] = exit_type
+                
             df.to_excel(EXCEL_SIGNALS_FILE, index=False)
-            logger.info(f"Señal de {asset} actualizada en Excel a {status}")
+            logger.info(f"Señal de {asset} actualizada en Excel: Status={status}, PnL={pnl}, Exit={exit_type}")
     except Exception as e:
         logger.error(f"Error al actualizar señal en Excel: {e}")
 

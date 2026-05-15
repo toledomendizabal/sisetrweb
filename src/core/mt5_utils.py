@@ -83,3 +83,39 @@ def get_position_pnl(symbol):
         return positions[0].profit
     return 0.0
 
+def get_last_closed_position_details(symbol):
+    """Obtiene los detalles de la última posición cerrada para un símbolo."""
+    import time
+    # Obtener historial de las últimas 24 horas
+    from_date = time.time() - 24 * 60 * 60
+    to_date = time.time() + 60
+    
+    history = mt5.history_deals_get(from_date, to_date, group=f"*{symbol}*")
+    if history is None or len(history) == 0:
+        return None
+    
+    # Filtrar solo los deals que cierran una posición (entry out)
+    # DEAL_ENTRY_OUT = 1
+    closed_deals = [d for d in history if d.entry == 1]
+    if not closed_deals:
+        return None
+    
+    # Tomar el último deal de cierre
+    last_deal = closed_deals[-1]
+    
+    # Determinar si fue SL o TP basándose en el comentario o el precio
+    # Nota: MT5 suele poner [sl] o [tp] en el comentario del deal
+    comment = last_deal.comment.lower()
+    status = "CLOSED"
+    if "sl" in comment:
+        status = "STOP LOSS"
+    elif "tp" in comment:
+        status = "TAKE PROFIT"
+    
+    return {
+        "status": status,
+        "pnl": last_deal.profit + last_deal.commission + last_deal.swap,
+        "price": last_deal.price,
+        "time": datetime.fromtimestamp(last_deal.time)
+    }
+

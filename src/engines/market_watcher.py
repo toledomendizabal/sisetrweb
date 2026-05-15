@@ -2,7 +2,7 @@
 import asyncio
 import MetaTrader5 as mt5
 from src.core.logger import setup_logging
-from src.core.mt5_utils import initialize_mt5, shutdown_mt5, get_ohlc_data, is_position_open, get_position_pnl
+from src.core.mt5_utils import initialize_mt5, shutdown_mt5, get_ohlc_data, is_position_open, get_position_pnl, get_last_closed_position_details
 from src.engines.signal_engine import evaluate_signal
 from src.core.data_models import Signal
 from src.managers.telegram_manager import send_signal_notification, send_telegram_message
@@ -28,21 +28,35 @@ async def start_market_watcher():
                         if is_asset_active_in_excel(asset):
                             # Verificar si la posición sigue abierta en MetaTrader5
                             if not is_position_open(asset):
-                                logger.info(f"La posición para {asset} se ha cerrado en MT5. Actualizando registros...")
+                                logger.info(f"La posición para {asset} se ha cerrado en MT5. Recuperando detalles del cierre...")
                                 
-                                # Obtener el último PnL (opcional, si se puede recuperar del historial)
-                                # Por ahora marcamos como CLOSED
-                                update_signal_in_excel(asset, "CLOSED")
+                                # Obtener detalles del cierre desde el historial de MT5
+                                details = get_last_closed_position_details(asset)
+                                
+                                status = "CLOSED"
+                                pnl = 0.0
+                                if details:
+                                    status = details["status"]
+                                    pnl = details["pnl"]
+                                    logger.info(f"Resultado para {asset}: {status} | PnL: {pnl:.2f}")
+                                
+                                # Actualizar en Excel con el estado real (SL/TP) y el PnL
+                                update_signal_in_excel(asset, status, pnl)
                                 
                                 # También actualizar en la base de datos
                                 active_signals = get_active_signals()
                                 for s in active_signals:
                                     if s.asset == asset:
-                                        # Aquí necesitaríamos el ID de la señal, pero por ahora simplificamos
-                                        # update_signal_status(s.id, "CLOSED")
+                                        # update_signal_status(s.id, status, pnl)
                                         pass
                                 
-                                await send_telegram_message(f"✅ *Operación Cerrada:* {asset}. El bot reanudará la búsqueda de señales para este activo.")
+                                emoji = "🎯" if status == "TAKE PROFIT" else ("🛑" if status == "STOP LOSS" else "✅")
+                                await send_telegram_message(
+                                    f"{emoji} *Operación Cerrada:* {asset}\n"
+                                    f"*Resultado:* {status}\n"
+                                    f"*PnL:* {pnl:.2f} USD\n\n"
+                                    f"El bot reanudará la búsqueda de señales para este activo."
+                                )
                             else:
                                 logger.debug(f"Posición para {asset} sigue abierta. Saltando búsqueda.")
                                 continue

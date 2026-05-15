@@ -82,7 +82,17 @@ def get_active_signals():
     cursor.execute("SELECT * FROM signals WHERE status = 'ACTIVE'")
     rows = cursor.fetchall()
     conn.close()
-    return [Signal(**{k: (json.loads(v) if k == 'indicators_met' else (datetime.fromisoformat(v) if k == 'timestamp' else v)) for k, v in row.items()}) for row in rows]
+    
+    signals = []
+    for row in rows:
+        # Convertir sqlite3.Row a diccionario
+        data = dict(row)
+        # Procesar campos especiales
+        data['indicators_met'] = json.loads(data['indicators_met'])
+        data['timestamp'] = datetime.fromisoformat(data['timestamp'])
+        signals.append(Signal(**data))
+    
+    return signals
 
 def update_signal_status(signal_id: int, status: str, pnl: float = None):
     conn = get_db_connection()
